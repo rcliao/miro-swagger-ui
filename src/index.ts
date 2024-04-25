@@ -12,7 +12,7 @@ export async function init() {
     const jsonSpec = YAML.parse(specString);
 
     // Fetch a specific app card by specifying its ID
-    const url = `http://localhost:3000/swagger.html?spec=${encodeURIComponent(JSON.stringify(jsonSpec))}`;
+    const url = `https://rcliao.github.io/miro-swagger-ui/swagger.html?spec=${encodeURIComponent(JSON.stringify(jsonSpec))}`;
     console.log('opening url', url);
 
     // Open the modal to display the content of the fetched app card

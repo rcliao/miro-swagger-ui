@@ -24,6 +24,7 @@ export default defineConfig({
       input: allHtmlEntries,
     },
   },
+  base: 'https://rcliao.github.io/miro-swagger-ui/',
   plugins: [react()],
   server: {
     port: 3000,
