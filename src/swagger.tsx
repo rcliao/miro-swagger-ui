@@ -13,7 +13,9 @@ const App: React.FC = () => {
   const [jsonSpec, setJsonSpec] = React.useState(null);
   const [yamlSpec, setYamlSpec] = React.useState('');
 
-  init();
+  React.useEffect(() => {
+    init();
+  }, []);
 
   async function init() {
     const data = await miro.board.ui.getModalData<{spec: string}>();
