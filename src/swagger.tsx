@@ -13,15 +13,15 @@ const App: React.FC = () => {
   const [jsonSpec, setJsonSpec] = React.useState(null);
   const [yamlSpec, setYamlSpec] = React.useState('');
 
-  const appCardId = new URLSearchParams(window.location.search).get('appCardId');
   init();
 
   async function init() {
-    const specCollection = miro.board.storage.collection('swagger-spec');
-    const specString = await specCollection.get(`spec-${appCardId}`) as string;
-    const parsedJSONSpec = YAML.parse(specString);
-    setYamlSpec(specString);
-    setJsonSpec(parsedJSONSpec);
+    const data = await miro.board.ui.getModalData<{spec: string}>();
+    const specYAML = data?.spec || '';
+    const specJSON = YAML.parse(specYAML);
+
+    setYamlSpec(specYAML);
+    setJsonSpec(specJSON);
   }
 
   function toggleShowSource() {
