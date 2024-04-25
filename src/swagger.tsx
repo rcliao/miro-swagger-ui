@@ -34,7 +34,7 @@ const App: React.FC = () => {
         {showSource || !jsonSpec ? (
           <textarea className="textarea swagger-spec" value={yamlSpec} readOnly />
         ) : (
-          <SwaggerUI spec={jsonSpec} defaultModelsExpandDepth={9}>
+          <SwaggerUI spec={jsonSpec} docExpansion={"full"}>
           </SwaggerUI>
         )}
         <div className="cs1 ce12 centered">
