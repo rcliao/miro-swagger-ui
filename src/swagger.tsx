@@ -10,21 +10,31 @@ import '../src/assets/style.css';
 
 const App: React.FC = () => {
   const [showSource, setShowSource] = React.useState(false);
-  const specString = new URLSearchParams(window.location.search).get('spec');
+  const [jsonSpec, setJsonSpec] = React.useState(null);
+  const [yamlSpec, setYamlSpec] = React.useState('');
+
+  const appCardId = new URLSearchParams(window.location.search).get('appCardId');
+  init();
+
+  async function init() {
+    const specCollection = miro.board.storage.collection('swagger-spec');
+    const specString = await specCollection.get(`spec-${appCardId}`) as string;
+    const parsedJSONSpec = YAML.parse(specString);
+    setYamlSpec(specString);
+    setJsonSpec(parsedJSONSpec);
+  }
 
   function toggleShowSource() {
     setShowSource(!showSource);
   }
 
   try {
-    const spec = JSON.parse(specString || '{}');
-    const specYAML = YAML.stringify(spec, 99, 2);
     return (
       <div>
         {showSource ? (
-          <textarea className="textarea swagger-spec" value={specYAML} readOnly />
+          <textarea className="textarea swagger-spec" value={yamlSpec} readOnly />
         ) : (
-          <SwaggerUI spec={spec}>
+          <SwaggerUI spec={jsonSpec}>
           </SwaggerUI>
         )}
         <div className="cs1 ce12 centered">
